@@ -1,4 +1,20 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  devtools: { enabled: true }
-})
+	devtools: { enabled: true },
+	modules: ["nuxt-auth-sanctum"],
+	imports: {
+		autoImport: false,
+	},
+	sanctum: {
+		baseUrl: process.env.BACKEND_URL,
+		redirect: {
+			onLogin: "/a",
+			onLogout: "/",
+			onGuestOnly: "/a",
+			onAuthOnly: "/",
+		},
+		endpoints: {
+			user: "/api/auth",
+		},
+	},
+});
