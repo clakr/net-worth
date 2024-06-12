@@ -8,7 +8,7 @@ import Header from '~/components/Header.vue';
 import capitalizeFirstLetter from '~/composables/capitalizeFirstLetter';
 
 definePageMeta({
-    middleware: 'sanctum:auth',
+    middleware: 'admin',
     layout: 'admin-aside'
 })
 

@@ -8,7 +8,7 @@ import Input from '~/components/Input.vue';
 import Label from '~/components/Label.vue';
 
 definePageMeta({
-    middleware: 'sanctum:guest',
+    middleware: 'guest',
     layout: 'guest'
 })
 

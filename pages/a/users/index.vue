@@ -8,7 +8,7 @@ import Header from '~/components/Header.vue';
 import Table from '~/components/Table.vue';
 
 definePageMeta({
-    middleware: 'sanctum:auth',
+    middleware: 'admin',
     layout: 'admin-aside'
 })
 
@@ -67,8 +67,9 @@ async function handleDeleteUser(userId: User['id']) {
                             <td>{{ user.updatedAt }}</td>
                             <td>
                                 <div class="flex gap-x-2">
-                                    <Button :to="`/a/users/${user.id}/edit`">Edit</Button>
-                                    <Button type="button" @click="handleDeleteUser(user.id)">Delete</Button>
+                                    <Button variant="subtle" :to="`/a/users/${user.id}/edit`">Edit</Button>
+                                    <Button variant="subtle" type="button"
+                                        @click="handleDeleteUser(user.id)">Delete</Button>
                                 </div>
                             </td>
                         </tr>

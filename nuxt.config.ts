@@ -8,7 +8,6 @@ export default defineNuxtConfig({
 	sanctum: {
 		baseUrl: process.env.BACKEND_URL,
 		redirect: {
-			onLogin: "/a",
 			onLogout: "/",
 			onGuestOnly: "/a",
 			onAuthOnly: "/",

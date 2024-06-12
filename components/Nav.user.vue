@@ -1,7 +1,7 @@
 <script setup lang='ts'>
 import { useSanctumAuth, useSanctumUser } from '#imports';
 import type { Resource } from '~/utils/types';
-import type { User } from '~/utils/types/User';
+import type { User, UserRole } from '~/utils/types/User';
 
 // GET AUTHED USER
 const user = useSanctumUser<Resource<User>>()
@@ -16,7 +16,7 @@ async function handleLogoutUser() {
 <template>
     <Nav v-if="user" className="flex items-center justify-between">
         <div>
-            <Button to="/a" variant="subtle">Home</Button>
+            <Button to="/u" variant="subtle">Home</Button>
         </div>
         <div class="flex gap-x-2">
             <Button to="#" variant="subtle">{{ user.data.name }}</Button>

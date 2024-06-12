@@ -11,7 +11,7 @@ import capitalizeFirstLetter from '~/composables/capitalizeFirstLetter';
 import { UserRole, type AdminCreateUserCredentials, type AdminCreateUserCredentialsErrors } from '~/utils/types/User';
 
 definePageMeta({
-    middleware: 'sanctum:auth',
+    middleware: 'admin',
     layout: 'admin-aside'
 })
 
