@@ -1,8 +1,7 @@
 <script setup lang='ts'>
-import { definePageMeta, useAsyncData, useSanctumClient, useSanctumUser } from '#imports';
-import formatToCurrency from '~/composables/formatToCurrency';
+import { definePageMeta, formatToCurrency, useAsyncData, useSanctumClient, useSanctumUser } from '#imports';
 import type { Resource } from '~/utils/types';
-import type { NetWorth } from '~/utils/types/NetWorth';
+import type { Transaction } from '~/utils/types/Transaction';
 import type { User } from '~/utils/types/User';
 
 definePageMeta({
@@ -10,24 +9,23 @@ definePageMeta({
     layout: 'user-aside'
 })
 
-// GET'S USER NETWORTH
+// GET USER'S TRANSACTIONS
 const user = useSanctumUser<Resource<User>>()
 const userId = user.value?.data.id
 
 const client = useSanctumClient()
-const { status, error, data: response } = useAsyncData<Resource<NetWorth>>(
-    () => client(`/api/users/${userId}/net-worth`),
+const { status, error, data: response } = useAsyncData<Resource<Transaction[]>>(
+    () => client(`/api/users/${userId}/transactions`),
     { lazy: true }
 )
+
 </script>
 
 <template>
-    <Main className="flex flex-col gap-y-8">
-        <Header>Dashboard</Header>
-        <p v-if="status === 'pending'">loading...</p>
-        <p v-else-if="status === 'error'">{{ error }}</p>
-        <template v-else-if="status === 'success' && response">
-            <h2 class="text-5xl font-bold self-end">{{ formatToCurrency(response.data.amount) }}</h2>
+    <Main class="flex flex-col gap-y-8">
+        <Header>Transactions</Header>
+        <section class="flex flex-col gap-y-4">
+            <Button to="/u/transactions/create" className="self-end">Create Transaction</Button>
             <Table>
                 <template #thead>
                     <th>ID</th>
@@ -39,7 +37,13 @@ const { status, error, data: response } = useAsyncData<Resource<NetWorth>>(
                     <th>Updated</th>
                 </template>
                 <template #tbody>
-                    <tr v-for="transaction in response.data.transactions">
+                    <tr v-if="status === 'pending'">
+                        <td colspan="7" class="text-center">loading...</td>
+                    </tr>
+                    <tr v-else-if="status === 'error'">
+                        <td colspan="7" class="text-center">{{ error }}</td>
+                    </tr>
+                    <tr v-else-if="status === 'success' && response" v-for="transaction in response.data">
                         <td>{{ transaction.id }}</td>
                         <td>{{ transaction.type }}</td>
                         <td>{{ transaction.name }}</td>
@@ -50,6 +54,6 @@ const { status, error, data: response } = useAsyncData<Resource<NetWorth>>(
                     </tr>
                 </template>
             </Table>
-        </template>
+        </section>
     </Main>
 </template>

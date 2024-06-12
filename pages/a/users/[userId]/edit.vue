@@ -1,10 +1,8 @@
 <script setup lang='ts'>
-import { clearNuxtData, definePageMeta, navigateTo, reactive, refreshNuxtData, useAsyncData, useSanctumClient, watch } from '#imports';
+import { definePageMeta, navigateTo, reactive, useAsyncData, useSanctumClient } from '#imports';
 import { useRoute } from 'vue-router';
-import Main from '~/components/Main.vue';
 import type { Resource } from '~/utils/types';
 import { UserRole, type AdminEditUserCredentials, type AdminEditUserCredentialsErrors, type User } from '~/utils/types/User';
-import Header from '~/components/Header.vue';
 import capitalizeFirstLetter from '~/composables/capitalizeFirstLetter';
 
 definePageMeta({

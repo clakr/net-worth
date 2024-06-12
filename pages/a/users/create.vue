@@ -1,12 +1,6 @@
 <script setup lang='ts'>
 import { definePageMeta, navigateTo, reactive, useSanctumClient } from '#imports';
-import Button from '~/components/Button.vue';
-import FormField from '~/components/FormField.vue';
 import FormFieldErrors from '~/components/FormFieldErrors.vue';
-import Header from '~/components/Header.vue';
-import Input from '~/components/Input.vue';
-import Label from '~/components/Label.vue';
-import Main from '~/components/Main.vue';
 import capitalizeFirstLetter from '~/composables/capitalizeFirstLetter';
 import { UserRole, type AdminCreateUserCredentials, type AdminCreateUserCredentialsErrors } from '~/utils/types/User';
 

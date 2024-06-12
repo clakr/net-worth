@@ -1,11 +1,6 @@
 <script setup lang='ts'>
 import { definePageMeta, navigateTo, useSanctumClient, useSanctumUser } from '#imports';
 import { reactive } from 'vue';
-import Main from '~/components/Main.vue';
-import Button from '~/components/Button.vue';
-import FormField from '~/components/FormField.vue';
-import Input from '~/components/Input.vue';
-import Label from '~/components/Label.vue';
 
 definePageMeta({
     middleware: 'guest',

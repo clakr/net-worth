@@ -1,7 +1,9 @@
 <template>
-    <div className="min-h-screen grid grid-cols-[300px_calc(100svw-300px)] grid-rows-[69px_1fr]">
+    <div class="min-h-screen grid grid-cols-[300px_calc(100svw-300px)] grid-rows-[69px_1fr]">
         <Aside className="row-span-2 flex flex-col">
-            aside!
+            <Button variant="subtle" to="/u/transactions">
+                Transactions
+            </Button>
         </Aside>
         <NavUser />
         <slot />

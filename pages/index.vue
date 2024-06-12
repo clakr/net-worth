@@ -1,9 +1,6 @@
 <script setup lang='ts'>
 import { capitalizeFirstLetter, definePageMeta, navigateTo, useSanctumAuth } from '#imports';
 import { reactive, ref, watch } from 'vue';
-import Main from '~/components/Main.vue';
-import Button from '~/components/Button.vue';
-import FormField from '~/components/FormField.vue';
 import type { Resource } from '~/utils/types';
 import { UserRole, type User } from '~/utils/types/User';
 
