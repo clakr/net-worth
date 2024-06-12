@@ -1,0 +1,30 @@
+{
+	"Custom Component": {
+		"scope": "vue",
+		"prefix": "cc",
+		"body": [
+			"<script setup lang='ts'>",
+			"import { twMerge } from 'tailwind-merge'",
+			"",
+			"type Props = {",
+			"    className?: string,",
+			"}",
+			"",
+			"const props = withDefaults(defineProps<Props>(), {",
+			"$2",
+			"})",
+			"",
+			"const classes = twMerge(",
+			"    '',",
+			"    props.className",
+			")",
+			"</script>",
+			"",
+			"<template>",
+			"    <$1 :class=\"classes\">",
+			"        <slot />",
+			"    </$1>",
+			"</template>",
+		]
+	}
+}

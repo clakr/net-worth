@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
 	devtools: { enabled: true },
-	modules: ["nuxt-auth-sanctum"],
+	modules: ["nuxt-auth-sanctum", "@nuxtjs/tailwindcss"],
 	imports: {
 		autoImport: false,
 	},
@@ -16,5 +16,8 @@ export default defineNuxtConfig({
 		endpoints: {
 			user: "/api/auth",
 		},
+	},
+	tailwindcss: {
+		configPath: "tailwind.config",
 	},
 });

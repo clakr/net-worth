@@ -1,19 +1,23 @@
 {
-	"name": "nuxt-app",
-	"private": true,
-	"type": "module",
-	"scripts": {
-		"build": "nuxt build",
-		"dev": "nuxt dev",
-		"generate": "nuxt generate",
-		"preview": "nuxt preview",
-		"postinstall": "nuxt prepare",
-		"clean": "rm -rf .nuxt node_modules bun.lockb"
-	},
-	"dependencies": {
-		"nuxt": "^3.12.1",
-		"nuxt-auth-sanctum": "^0.3.14",
-		"vue": "^3.4.27",
-		"vue-router": "^4.3.3"
-	}
+  "name": "nuxt-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "clean": "rm -rf .nuxt node_modules bun.lockb"
+  },
+  "dependencies": {
+    "@nuxtjs/tailwindcss": "^6.12.0",
+    "nuxt": "^3.12.1",
+    "nuxt-auth-sanctum": "^0.3.14",
+    "vue": "^3.4.27",
+    "vue-router": "^4.3.3"
+  },
+  "devDependencies": {
+    "tailwind-merge": "^2.3.0"
+  }
 }

@@ -1,6 +1,7 @@
 <script setup lang='ts'>
 import { definePageMeta, useSanctumAuth } from '#imports';
 import { reactive } from 'vue';
+import FormGroup from '~/components/FormGroup.vue';
 
 definePageMeta({
     middleware: 'sanctum:guest',
@@ -19,15 +20,17 @@ async function handleLoginUser() {
 </script>
 
 <template>
-    <form @submit.prevent="handleLoginUser">
-        <div>
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" v-model="form.email">
-        </div>
-        <div>
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" v-model="form.password">
-        </div>
-        <button>Login</button>
-    </form>
+    <Main>
+        <form class="flex flex-col gap-y-2 *:gap-y-1" @submit.prevent="handleLoginUser">
+            <FormGroup>
+                <Label for="email">Email</Label>
+                <Input type="email" name="email" id="email" v-model="form.email" />
+            </FormGroup>
+            <FormGroup>
+                <Label for="password">Password</Label>
+                <Input type="password" name="password" id="password" v-model="form.password" />
+            </FormGroup>
+            <Button>Login</Button>
+        </form>
+    </Main>
 </template>

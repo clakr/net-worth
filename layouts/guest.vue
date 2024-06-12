@@ -1,11 +1,13 @@
 <script setup lang='ts'>
+import Nav from '~/components/Nav.vue';
+
 
 </script>
 
 <template>
-    <nav>
-        <NuxtLink to="/">Login</NuxtLink>
-        <NuxtLink to="/register">Register</NuxtLink>
-    </nav>
+    <Nav className="flex items-center justify-end gap-x-2">
+        <Button to="/register" variant="subtle">Register</Button>
+        <Button to="/">Login</Button>
+    </Nav>
     <slot />
 </template>
