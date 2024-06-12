@@ -42,6 +42,7 @@ async function handleDeleteUser(userId: User['id']) {
                 <Table>
                     <template #thead>
                         <th>ID</th>
+                        <th>Role</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Email Verified</th>
@@ -58,6 +59,7 @@ async function handleDeleteUser(userId: User['id']) {
                         </tr>
                         <tr v-else-if="status === 'success' && response" v-for="user in response.data">
                             <td>{{ user.id }}</td>
+                            <td>{{ user.role }}</td>
                             <td>{{ user.name }}</td>
                             <td>{{ user.email }}</td>
                             <td>{{ user.emailVerifiedAt }}</td>

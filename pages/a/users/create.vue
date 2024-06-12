@@ -7,7 +7,8 @@ import Header from '~/components/Header.vue';
 import Input from '~/components/Input.vue';
 import Label from '~/components/Label.vue';
 import Main from '~/components/Main.vue';
-import type { AdminCreateUserCredentials, AdminCreateUserCredentialsErrors } from '~/utils/types/User';
+import capitalizeFirstLetter from '~/composables/capitalizeFirstLetter';
+import { UserRole, type AdminCreateUserCredentials, type AdminCreateUserCredentialsErrors } from '~/utils/types/User';
 
 definePageMeta({
     middleware: 'sanctum:auth',
@@ -17,11 +18,13 @@ definePageMeta({
 // CREATE USER
 const formErrors = reactive<AdminCreateUserCredentialsErrors>({
     name: [],
-    email: []
+    email: [],
+    role: []
 })
 const formData = reactive<AdminCreateUserCredentials>({
     name: '',
-    email: ''
+    email: '',
+    role: UserRole.ADMIN
 })
 async function handleCreateUser() {
     const client = useSanctumClient()
@@ -47,6 +50,13 @@ async function handleCreateUser() {
     <Main className="flex flex-col gap-y-4">
         <Header>Create User</Header>
         <form class="flex flex-col gap-y-2 *:gap-y-1" @submit.prevent="handleCreateUser">
+            <FormField className="*:flex *:items-center *:gap-x-2">
+                <div v-for="userRole in UserRole">
+                    <input type="radio" name="role" :id="userRole" :value="userRole" v-model="formData.role" required>
+                    <Label :for="userRole">{{ capitalizeFirstLetter(userRole) }}</Label>
+                </div>
+                <FormFieldErrors :list="formErrors.role" />
+            </FormField>
             <FormField>
                 <Label for="name">Name</Label>
                 <Input type="text" name="name" id="name" v-model="formData.name" required />

@@ -3,8 +3,9 @@ import { clearNuxtData, definePageMeta, navigateTo, reactive, refreshNuxtData, u
 import { useRoute } from 'vue-router';
 import Main from '~/components/Main.vue';
 import type { Resource } from '~/utils/types';
-import type { AdminEditUserCredentials, AdminEditUserCredentialsErrors, User } from '~/utils/types/User';
+import { UserRole, type AdminEditUserCredentials, type AdminEditUserCredentialsErrors, type User } from '~/utils/types/User';
 import Header from '~/components/Header.vue';
+import capitalizeFirstLetter from '~/composables/capitalizeFirstLetter';
 
 definePageMeta({
     middleware: 'sanctum:auth',
@@ -17,11 +18,13 @@ const userId = route.params.userId
 
 const formErrors = reactive<AdminEditUserCredentialsErrors>({
     name: [],
-    email: []
+    email: [],
+    role: []
 })
 const formData = reactive<AdminEditUserCredentials>({
     name: '',
-    email: ''
+    email: '',
+    role: UserRole.ADMIN
 })
 
 const client = useSanctumClient()
@@ -33,6 +36,7 @@ const { status, error } = await useAsyncData<Resource<User>>(
 
             formData.name = data.name
             formData.email = data.email
+            formData.role = data.role
         }
     }),
     {
@@ -65,6 +69,13 @@ async function handleEditUser() {
     <Main className="flex flex-col gap-y-4">
         <Header>Edit User #{{ userId }}</Header>
         <form v-if="status !== 'error'" class="flex flex-col gap-y-2 *:gap-y-1" @submit.prevent="handleEditUser">
+            <FormField className="*:flex *:items-center *:gap-x-2">
+                <div v-for="userRole in UserRole">
+                    <input type="radio" name="role" :id="userRole" :value="userRole" v-model="formData.role" required>
+                    <Label :for="userRole">{{ capitalizeFirstLetter(userRole) }}</Label>
+                </div>
+                <FormFieldErrors :list="formErrors.role" />
+            </FormField>
             <FormField>
                 <Label for="name">Name</Label>
                 <Input type="text" name="name" id="name" v-model="formData.name" required />
