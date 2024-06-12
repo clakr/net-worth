@@ -1,7 +1,6 @@
 <script setup lang='ts'>
 import Nav from '~/components/Nav.vue';
-
-
+import Button from '~/components/Button.vue';
 </script>
 
 <template>

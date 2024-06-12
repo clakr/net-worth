@@ -19,7 +19,8 @@ const variant: Record<Variant, string> = {
 }
 
 const classes = twMerge(
-    'py-1.5 px-3 rounded font-medium focus:outline-primary-8',
+    'py-1.5 px-3 rounded font-medium whitespace-pre',
+    'focus:outline-primary-8',
     variant[props.variant],
     props.className
 )

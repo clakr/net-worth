@@ -1,6 +1,9 @@
 <script setup lang='ts'>
 import { definePageMeta, navigateTo, useSanctumClient, useSanctumUser } from '#imports';
 import { reactive } from 'vue';
+import Main from '~/components/Main.vue';
+import Button from '~/components/Button.vue';
+import FormField from '~/components/FormField.vue';
 import Input from '~/components/Input.vue';
 import Label from '~/components/Label.vue';
 
@@ -32,23 +35,23 @@ async function handleRegisterUser() {
 <template>
     <Main>
         <form class="flex flex-col gap-y-2 *:gap-y-1" @submit.prevent="handleRegisterUser">
-            <FormGroup>
+            <FormField>
                 <Label for="name">Name</Label>
                 <Input type="text" name="name" id="name" v-model="form.name" />
-            </FormGroup>
-            <FormGroup>
+            </FormField>
+            <FormField>
                 <Label for="email">Email</Label>
                 <Input type="email" name="email" id="email" v-model="form.email" />
-            </FormGroup>
-            <FormGroup>
+            </FormField>
+            <FormField>
                 <Label for="password">Password</Label>
                 <Input type="password" name="password" id="password" v-model="form.password" />
-            </FormGroup>
-            <FormGroup>
+            </FormField>
+            <FormField>
                 <Label for="password_confirmation">Confirm Password</Label>
                 <Input type="password" name="password_confirmation" id="password_confirmation"
                     v-model="form.password_confirmation" />
-            </FormGroup>
+            </FormField>
             <Button>Register</Button>
         </form>
     </Main>

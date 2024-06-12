@@ -5,3 +5,15 @@ export type User = LaravelModel & {
 	email: string;
 	emailVerifiedAt: Date;
 };
+
+export type AdminCreateUserCredentials = Pick<User, "name" | "email">;
+export type AdminCreateUserCredentialsErrors = Record<
+	keyof AdminCreateUserCredentials,
+	string[]
+>;
+
+export type AdminEditUserCredentials = AdminCreateUserCredentials;
+export type AdminEditUserCredentialsErrors = Record<
+	keyof AdminEditUserCredentials,
+	string[]
+>;
