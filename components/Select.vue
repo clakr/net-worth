@@ -13,13 +13,14 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const classes = twMerge(
-    'border border-primary-6 py-2 px-3 rounded text-primary-12',
+    'border border-primary-6 py-2 px-3 rounded text-priamary-12',
     'focus:outline-primary-8',
     props.className
 )
 </script>
 
 <template>
-    <textarea :class="classes" v-model="model">
-    </textarea>
+    <select :class="classes" v-model="model">
+        <slot />
+    </select>
 </template>

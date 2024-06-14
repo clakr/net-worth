@@ -32,6 +32,7 @@ const { status, error, data: response } = useAsyncData<Resource<Transaction[]>>(
                     <th>Type</th>
                     <th>Name</th>
                     <th>Description</th>
+                    <th>Category</th>
                     <th>Amount</th>
                     <th>Created</th>
                     <th>Updated</th>
@@ -48,6 +49,7 @@ const { status, error, data: response } = useAsyncData<Resource<Transaction[]>>(
                         <td>{{ transaction.type }}</td>
                         <td>{{ transaction.name }}</td>
                         <td>{{ transaction.description }}</td>
+                        <td>{{ transaction.category?.name }}</td>
                         <td>{{ formatToCurrency(transaction.amount) }}</td>
                         <td>{{ transaction.createdAt }}</td>
                         <td>{{ transaction.updatedAt }}</td>
