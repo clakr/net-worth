@@ -27,5 +27,25 @@
 			"    </$1>",
 			"</template>",
 		]
+	},
+	"Admin Page": {
+		"scope": "vue",
+		"prefix": "ap",
+		"body": [
+			"<script setup lang='ts'>",
+			"import { definePageMeta } from '#imports';",
+			"",
+			"definePageMeta({",
+			"    middleware: 'admin',",
+			"    layout: '$1'",
+			"})",
+			"</script>",
+			"<template>",
+			"    <Main className=\"flex flex-col gap-y-4\">",
+			"        <Header>$2</Header>",
+			"        $3",
+			"    </Main>",
+			"</template>",
+		]
 	}
 }

@@ -4,6 +4,9 @@
             <Button to="/a/users" variant="subtle">
                 Users
             </Button>
+            <Button to="/a/categories" variant="subtle">
+                Categories
+            </Button>
         </Aside>
         <NavAdmin />
         <slot />
