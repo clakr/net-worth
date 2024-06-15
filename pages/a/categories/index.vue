@@ -49,19 +49,24 @@ async function handleDeleteCategory(categoryId: Category['id']) {
                     <tr v-else-if="status === 'error'">
                         <td colspan="7" class="text-center">{{ error }}</td>
                     </tr>
-                    <tr v-else-if="status === 'success' && response" v-for="category in response.data">
-                        <td>{{ category.id }}</td>
-                        <td>{{ category.name }}</td>
-                        <td>{{ category.createdAt }}</td>
-                        <td>{{ category.updatedAt }}</td>
-                        <td>
-                            <div class="flex gap-x-2">
-                                <Button variant="subtle" :to="`/a/categories/${category.id}/edit`">Edit</Button>
-                                <Button variant="subtle" type="button"
-                                    @click="handleDeleteCategory(category.id)">Delete</Button>
-                            </div>
-                        </td>
-                    </tr>
+                    <template v-else-if="status === 'success' && response">
+                        <tr v-if="!response.data.length">
+                            <td colspan="7" class="text-center">no data found</td>
+                        </tr>
+                        <tr v-else v-for="category in response.data">
+                            <td>{{ category.id }}</td>
+                            <td>{{ category.name }}</td>
+                            <td>{{ category.createdAt }}</td>
+                            <td>{{ category.updatedAt }}</td>
+                            <td>
+                                <div class="flex gap-x-2">
+                                    <Button variant="subtle" :to="`/a/categories/${category.id}/edit`">Edit</Button>
+                                    <Button variant="subtle" type="button"
+                                        @click="handleDeleteCategory(category.id)">Delete</Button>
+                                </div>
+                            </td>
+                        </tr>
+                    </template>
                 </template>
             </Table>
         </section>

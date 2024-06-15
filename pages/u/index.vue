@@ -39,7 +39,10 @@ const { status, error, data: response } = useAsyncData<Resource<NetWorth>>(
                     <th>Updated</th>
                 </template>
                 <template #tbody>
-                    <tr v-for="transaction in response.data.transactions">
+                    <tr v-if="!response.data.transactions?.length">
+                        <td colspan="7" class="text-center">no data found</td>
+                    </tr>
+                    <tr v-else v-for="transaction in response.data.transactions">
                         <td>{{ transaction.id }}</td>
                         <td>{{ transaction.type }}</td>
                         <td>{{ transaction.name }}</td>

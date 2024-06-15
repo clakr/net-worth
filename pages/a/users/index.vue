@@ -52,22 +52,27 @@ async function handleDeleteUser(userId: User['id']) {
                     <tr v-else-if="status === 'error'">
                         <td colspan="7" class="text-center">{{ error }}</td>
                     </tr>
-                    <tr v-else-if="status === 'success' && response" v-for="user in response.data">
-                        <td>{{ user.id }}</td>
-                        <td>{{ user.role }}</td>
-                        <td>{{ user.name }}</td>
-                        <td>{{ user.email }}</td>
-                        <td>{{ user.emailVerifiedAt }}</td>
-                        <td>{{ user.createdAt }}</td>
-                        <td>{{ user.updatedAt }}</td>
-                        <td>
-                            <div class="flex gap-x-2">
-                                <Button variant="subtle" :to="`/a/users/${user.id}/edit`">Edit</Button>
-                                <Button variant="subtle" type="button"
-                                    @click="handleDeleteUser(user.id)">Delete</Button>
-                            </div>
-                        </td>
-                    </tr>
+                    <template v-else-if="status === 'success' && response">
+                        <tr v-if="!response.data.length">
+                            <td colspan="7" class="text-center">no data found</td>
+                        </tr>
+                        <tr v-else v-for="user in response.data">
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.role }}</td>
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.emailVerifiedAt }}</td>
+                            <td>{{ user.createdAt }}</td>
+                            <td>{{ user.updatedAt }}</td>
+                            <td>
+                                <div class="flex gap-x-2">
+                                    <Button variant="subtle" :to="`/a/users/${user.id}/edit`">Edit</Button>
+                                    <Button variant="subtle" type="button"
+                                        @click="handleDeleteUser(user.id)">Delete</Button>
+                                </div>
+                            </td>
+                        </tr>
+                    </template>
                 </template>
             </Table>
         </section>
