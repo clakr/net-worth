@@ -1,5 +1,3 @@
-import { defineNuxtRouteMiddleware, navigateTo } from "#app";
-import { useSanctumAuth } from "#imports";
 import type { Resource } from "~/utils/types";
 import { UserRole, type User } from "~/utils/types/User";
 

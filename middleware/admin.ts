@@ -1,5 +1,3 @@
-import { defineNuxtRouteMiddleware, navigateTo } from "#app";
-import { useSanctumAuth } from "#imports";
 import type { Resource } from "~/utils/types";
 import { UserRole, type User } from "~/utils/types/User";
 
@@ -10,8 +8,6 @@ export default defineNuxtRouteMiddleware((to, from) => {
 		auth.user.value?.data.role === UserRole.ADMIN
 	)
 		return;
-
-	console.log(auth.user.value?.data.role);
 
 	let endpoint = from.fullPath;
 	if (to.fullPath === from.fullPath) {

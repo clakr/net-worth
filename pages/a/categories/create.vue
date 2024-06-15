@@ -1,48 +1,50 @@
 <script setup lang='ts'>
-import { definePageMeta, navigateTo, reactive, useSanctumClient } from '#imports';
-import type { AdminCreateCategoryCredentials, AdminCreateCategoryCredentialsErrors } from '~/utils/types/Category';
+import type {
+	AdminCreateCategoryCredentials,
+	AdminCreateCategoryCredentialsErrors,
+} from "~/utils/types/Category";
 
 definePageMeta({
-    middleware: 'admin',
-    layout: 'admin-aside'
-})
+	middleware: "admin",
+	layout: "admin-aside",
+});
 
 // CREATE CATEGORY
 const formErrors = reactive<AdminCreateCategoryCredentialsErrors>({
-    name: []
-})
+	name: [],
+});
 const formData = reactive<AdminCreateCategoryCredentials>({
-    name: ''
-})
+	name: "",
+});
 async function handleCreateCategory() {
-    const client = useSanctumClient()
-    await client('/api/categories', {
-        method: 'post',
-        body: { ...formData },
-        async onResponse(context) {
-            if (!context.response.ok) return
+	const client = useSanctumClient();
+	await client("/api/categories", {
+		method: "post",
+		body: { ...formData },
+		async onResponse(context) {
+			if (!context.response.ok) return;
 
-            await navigateTo('/a/categories')
-        }
-    }).catch((responseError) => {
-        const errors = responseError.data.errors as typeof formErrors
-        for (const error of Object.keys(errors)) {
-            const key = error as keyof typeof formErrors
-            formErrors[key] = errors[key]
-        }
-    })
+			await navigateTo("/a/categories");
+		},
+	}).catch((responseError) => {
+		const errors = responseError.data.errors as typeof formErrors;
+		for (const error of Object.keys(errors)) {
+			const key = error as keyof typeof formErrors;
+			formErrors[key] = errors[key];
+		}
+	});
 }
 </script>
 <template>
-    <Main className="flex flex-col gap-y-4">
-        <Header>Create Category</Header>
-        <form class="flex flex-col gap-y-2 *:gap-y-1" @submit.prevent="handleCreateCategory">
-            <FormField>
-                <Label for="name">Name</Label>
-                <Input type="text" name="name" id="name" v-model="formData.name" />
-                <FormFieldErrors :list="formErrors.name" />
-            </FormField>
-            <Button>Create</Button>
-        </form>
-    </Main>
+	<Main className="flex flex-col gap-y-4">
+		<Header>Create Category</Header>
+		<form class="flex flex-col gap-y-2 *:gap-y-1" @submit.prevent="handleCreateCategory">
+			<FormField>
+				<Label for="name">Name</Label>
+				<Input type="text" name="name" id="name" v-model="formData.name" />
+				<FormFieldErrors :list="formErrors.name" />
+			</FormField>
+			<Button>Create</Button>
+		</form>
+	</Main>
 </template>

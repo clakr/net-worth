@@ -7,6 +7,9 @@
             <Button to="/a/categories" variant="subtle">
                 Categories
             </Button>
+            <Button to="/a/subcategories" variant="subtle">
+                Subcategories
+            </Button>
         </Aside>
         <NavAdmin />
         <slot />

@@ -1,18 +1,13 @@
 <script setup lang='ts'>
-import { twMerge } from 'tailwind-merge'
+import { twMerge } from "tailwind-merge";
 
 type Props = {
-    className?: string,
-}
+	className?: string;
+};
 
-const props = withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {});
 
-})
-
-const classes = twMerge(
-    'text-5xl font-medium',
-    props.className
-)
+const classes = twMerge("text-5xl font-medium", props.className);
 </script>
 
 <template>

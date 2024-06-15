@@ -1,31 +1,34 @@
 <script setup lang='ts'>
-import { definePageMeta, refreshNuxtData, useAsyncData, useSanctumClient } from '#imports';
-import type { Resource } from '~/utils/types';
-import type { Category } from '~/utils/types/Category';
+import type { Resource } from "~/utils/types";
+import type { Category } from "~/utils/types/Category";
 
 definePageMeta({
-    middleware: 'admin',
-    layout: 'admin-aside'
-})
+	middleware: "admin",
+	layout: "admin-aside",
+});
 
 // GET CATEGORIES
-const client = useSanctumClient()
-const { status, error, data: response } = useAsyncData<Resource<Category[]>>(
-    'categories',
-    () => client('/api/categories'),
-    { lazy: true }
-)
+const client = useSanctumClient();
+const {
+	status,
+	error,
+	data: response,
+} = useAsyncData<Resource<Category[]>>(
+	"categories",
+	() => client("/api/categories"),
+	{ lazy: true },
+);
 
 // DELETE CATEGORY
-async function handleDeleteCategory(categoryId: Category['id']) {
-    await client(`/api/categories/${categoryId}`, {
-        method: 'delete',
-        onResponse(context) {
-            if (!context.response.ok) return
+async function handleDeleteCategory(categoryId: Category["id"]) {
+	await client(`/api/categories/${categoryId}`, {
+		method: "delete",
+		onResponse(context) {
+			if (!context.response.ok) return;
 
-            refreshNuxtData('categories')
-        }
-    })
+			refreshNuxtData("categories");
+		},
+	});
 }
 </script>
 

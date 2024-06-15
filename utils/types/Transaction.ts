@@ -1,5 +1,6 @@
 import type { LaravelModel } from ".";
 import type { Category } from "./Category";
+import type { SubCategory } from "./SubCategory";
 
 export enum TransactionType {
 	EXPENSE = "expense",
@@ -11,7 +12,6 @@ export type Transaction = LaravelModel & {
 	name: string;
 	description: string;
 	amount: number;
-	category?: Category;
 };
 
 export type UserCreateTransactionCredentials = Pick<
@@ -19,6 +19,7 @@ export type UserCreateTransactionCredentials = Pick<
 	"type" | "name" | "description" | "amount" | "createdAt"
 > & {
 	categoryId: Category["id"];
+	subCategoryId: SubCategory["id"];
 };
 
 export type UserCreateTransactionCredentialsErrors = Record<

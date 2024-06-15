@@ -1,24 +1,28 @@
 <script setup lang='ts'>
-import { definePageMeta, useAsyncData, useSanctumClient, useSanctumUser } from '#imports';
-import formatToCurrency from '~/composables/formatToCurrency';
-import type { Resource } from '~/utils/types';
-import type { NetWorth } from '~/utils/types/NetWorth';
-import type { User } from '~/utils/types/User';
+import type { Resource } from "~/utils/types";
+import type { NetWorth } from "~/utils/types/NetWorth";
+import type { Transaction } from "~/utils/types/Transaction";
+import type { User } from "~/utils/types/User";
 
 definePageMeta({
-    middleware: 'user',
-    layout: 'user-aside'
-})
+	middleware: "user",
+	layout: "user-aside",
+});
 
-// GET'S USER NETWORTH
-const user = useSanctumUser<Resource<User>>()
-const userId = user.value?.data.id
+// GET USER'S NETWORTH
+const user = useSanctumUser<Resource<User>>();
+const userId = user.value?.data.id;
 
-const client = useSanctumClient()
-const { status, error, data: response } = useAsyncData<Resource<NetWorth>>(
-    () => client(`/api/users/${userId}/net-worth`),
-    { lazy: true }
-)
+type Data = Resource<NetWorth & { transactions: Transaction[] }>;
+
+const client = useSanctumClient();
+const {
+	status,
+	error,
+	data: response,
+} = useAsyncData<Data>(() => client(`/api/users/${userId}/net-worth`), {
+	lazy: true,
+});
 </script>
 
 <template>
@@ -39,7 +43,7 @@ const { status, error, data: response } = useAsyncData<Resource<NetWorth>>(
                     <th>Updated</th>
                 </template>
                 <template #tbody>
-                    <tr v-if="!response.data.transactions?.length">
+                    <tr v-if="!response.data.transactions.length">
                         <td colspan="7" class="text-center">no data found</td>
                     </tr>
                     <tr v-else v-for="transaction in response.data.transactions">

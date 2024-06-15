@@ -13,12 +13,14 @@ export type User = LaravelModel & {
 };
 
 export type AdminCreateUserCredentials = Pick<User, "name" | "email" | "role">;
+
 export type AdminCreateUserCredentialsErrors = Record<
 	keyof AdminCreateUserCredentials,
 	string[]
 >;
 
 export type AdminEditUserCredentials = AdminCreateUserCredentials;
+
 export type AdminEditUserCredentialsErrors = Record<
 	keyof AdminEditUserCredentials,
 	string[]

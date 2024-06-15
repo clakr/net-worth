@@ -1,9 +1,13 @@
-import { defineNuxtRouteMiddleware, navigateTo } from "#app";
-import { useSanctumAuth } from "#imports";
-
-export default defineNuxtRouteMiddleware((_, from) => {
+export default defineNuxtRouteMiddleware((to, from) => {
 	const auth = useSanctumAuth();
 	if (!auth.isAuthenticated.value) return;
 
-	return navigateTo(from.fullPath, { replace: true });
+	let endpoint = from.fullPath;
+	if (from.fullPath === to.fullPath && from.fullPath === "/") {
+		endpoint = "/register";
+	} else if (from.fullPath === to.fullPath && from.fullPath === "/register") {
+		endpoint = "/";
+	}
+
+	return navigateTo(endpoint, { replace: true });
 });

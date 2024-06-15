@@ -1,24 +1,28 @@
 <script setup lang='ts'>
-import { definePageMeta, formatToCurrency, useAsyncData, useSanctumClient, useSanctumUser } from '#imports';
-import type { Resource } from '~/utils/types';
-import type { Transaction } from '~/utils/types/Transaction';
-import type { User } from '~/utils/types/User';
+import type { Resource } from "~/utils/types";
+import type { SubCategory } from "~/utils/types/SubCategory";
+import type { Transaction } from "~/utils/types/Transaction";
+import type { User } from "~/utils/types/User";
 
 definePageMeta({
-    middleware: 'user',
-    layout: 'user-aside'
-})
+	middleware: "user",
+	layout: "user-aside",
+});
 
 // GET USER'S TRANSACTIONS
-const user = useSanctumUser<Resource<User>>()
-const userId = user.value?.data.id
+const user = useSanctumUser<Resource<User>>();
+const userId = user.value?.data.id;
 
-const client = useSanctumClient()
-const { status, error, data: response } = useAsyncData<Resource<Transaction[]>>(
-    () => client(`/api/users/${userId}/transactions`),
-    { lazy: true }
-)
+type Data = Resource<(Transaction & { subCategory: SubCategory })[]>;
 
+const client = useSanctumClient();
+const {
+	status,
+	error,
+	data: response,
+} = useAsyncData<Data>(() => client(`/api/users/${userId}/transactions`), {
+	lazy: true,
+});
 </script>
 
 <template>
@@ -32,7 +36,7 @@ const { status, error, data: response } = useAsyncData<Resource<Transaction[]>>(
                     <th>Type</th>
                     <th>Name</th>
                     <th>Description</th>
-                    <th>Category</th>
+                    <th>Subcategory</th>
                     <th>Amount</th>
                     <th>Created</th>
                     <th>Updated</th>
@@ -53,7 +57,7 @@ const { status, error, data: response } = useAsyncData<Resource<Transaction[]>>(
                             <td>{{ transaction.type }}</td>
                             <td>{{ transaction.name }}</td>
                             <td>{{ transaction.description }}</td>
-                            <td>{{ transaction.category?.name }}</td>
+                            <td>{{ transaction.subCategory.name }}</td>
                             <td>{{ formatToCurrency(transaction.amount) }}</td>
                             <td>{{ transaction.createdAt }}</td>
                             <td>{{ transaction.updatedAt }}</td>

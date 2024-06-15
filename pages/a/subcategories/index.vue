@@ -1,50 +1,51 @@
 <script setup lang='ts'>
 import type { Resource } from "~/utils/types";
-import type { User } from "~/utils/types/User";
+import type { Category } from "~/utils/types/Category";
+import type { SubCategory } from "~/utils/types/SubCategory";
 
 definePageMeta({
 	middleware: "admin",
 	layout: "admin-aside",
 });
 
-// GET USERS
+// GET SUBCATEGORIES
+type Data = Resource<(SubCategory & { category: Category })[]>;
+
 const client = useSanctumClient();
 const {
 	status,
 	error,
 	data: response,
-} = await useAsyncData<Resource<User[]>>("users", () => client("/api/users"), {
-	lazy: true,
-});
+} = await useAsyncData<Data>(
+	"subcategories",
+	() => client("/api/subcategories"),
+	{ lazy: true },
+);
 
-// DELETE USER
-async function handleDeleteUser(userId: User["id"]) {
-	await client(`/api/users/${userId}`, {
+// DELETE SUBCATEGORY
+async function handleDeleteSubCategory(subCategoryId: SubCategory["id"]) {
+	await client(`/api/subcategories/${subCategoryId}`, {
 		method: "delete",
 		onResponse(context) {
 			if (!context.response.ok) return;
 
-			refreshNuxtData("users");
+			refreshNuxtData("subcategories");
 		},
 	});
 }
 </script>
-
 <template>
     <Main className="flex flex-col gap-y-8">
-        <Header>Users</Header>
+        <Header>Subcategories</Header>
         <section class="flex flex-col gap-y-4">
-            <Button to="/a/users/create" className="self-end">Create User</Button>
+            <Button to="/a/subcategories/create" className="self-end">Create Subcategory</Button>
             <Table>
                 <template #thead>
                     <th>ID</th>
-                    <th>Role</th>
                     <th>Name</th>
-                    <th>Email</th>
-                    <th>Email Verified</th>
+                    <th>Category</th>
                     <th>Created</th>
                     <th>Updated</th>
-                    <th></th>
                 </template>
                 <template #tbody>
                     <tr v-if="status === 'pending'">
@@ -57,19 +58,18 @@ async function handleDeleteUser(userId: User["id"]) {
                         <tr v-if="!response.data.length">
                             <td colspan="7" class="text-center">no data found</td>
                         </tr>
-                        <tr v-else v-for="user in response.data">
-                            <td>{{ user.id }}</td>
-                            <td>{{ user.role }}</td>
-                            <td>{{ user.name }}</td>
-                            <td>{{ user.email }}</td>
-                            <td>{{ user.emailVerifiedAt }}</td>
-                            <td>{{ user.createdAt }}</td>
-                            <td>{{ user.updatedAt }}</td>
+                        <tr v-else v-for="subcategory in response.data">
+                            <td>{{ subcategory.id }}</td>
+                            <td>{{ subcategory.name }}</td>
+                            <td>{{ subcategory.category.name }}</td>
+                            <td>{{ subcategory.createdAt }}</td>
+                            <td>{{ subcategory.updatedAt }}</td>
                             <td>
                                 <div class="flex gap-x-2">
-                                    <Button variant="subtle" :to="`/a/users/${user.id}/edit`">Edit</Button>
+                                    <Button variant="subtle"
+                                        :to="`/a/subcategories/${subcategory.id}/edit`">Edit</Button>
                                     <Button variant="subtle" type="button"
-                                        @click="handleDeleteUser(user.id)">Delete</Button>
+                                        @click="handleDeleteSubCategory(subcategory.id)">Delete</Button>
                                 </div>
                             </td>
                         </tr>
