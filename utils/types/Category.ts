@@ -1,10 +1,16 @@
 import type { LaravelModel } from ".";
 
+export enum CategoryType {
+	EXPENSE = "expense",
+	INCOME = "income",
+}
+
 export type Category = LaravelModel & {
 	name: string;
+	type: CategoryType;
 };
 
-export type AdminCreateCategoryCredentials = Pick<Category, "name">;
+export type AdminCreateCategoryCredentials = Pick<Category, "name" | "type">;
 
 export type AdminCreateCategoryCredentialsErrors = Record<
 	keyof AdminCreateCategoryCredentials,

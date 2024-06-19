@@ -5,8 +5,8 @@ import type { Transaction } from "~/utils/types/Transaction";
 import type { User } from "~/utils/types/User";
 
 definePageMeta({
-	middleware: "user",
-	layout: "user-aside",
+    middleware: "user",
+    layout: "user-aside",
 });
 
 // GET USER'S TRANSACTIONS
@@ -17,11 +17,11 @@ type Data = Resource<(Transaction & { subCategory: SubCategory })[]>;
 
 const client = useSanctumClient();
 const {
-	status,
-	error,
-	data: response,
+    status,
+    error,
+    data: response,
 } = useAsyncData<Data>(() => client(`/api/users/${userId}/transactions`), {
-	lazy: true,
+    lazy: true,
 });
 </script>
 
@@ -33,7 +33,6 @@ const {
             <Table>
                 <template #thead>
                     <th>ID</th>
-                    <th>Type</th>
                     <th>Name</th>
                     <th>Description</th>
                     <th>Subcategory</th>
@@ -54,7 +53,6 @@ const {
                         </tr>
                         <tr v-else v-for="transaction in response.data">
                             <td>{{ transaction.id }}</td>
-                            <td>{{ transaction.type }}</td>
                             <td>{{ transaction.name }}</td>
                             <td>{{ transaction.description }}</td>
                             <td>{{ transaction.subCategory.name }}</td>

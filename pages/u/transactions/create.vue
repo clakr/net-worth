@@ -2,11 +2,11 @@
 import type { Resource } from "~/utils/types";
 import type { Category } from "~/utils/types/Category";
 import type { SubCategory } from "~/utils/types/SubCategory";
-import {
-	TransactionType,
-	type UserCreateTransactionCredentials,
-	type UserCreateTransactionCredentialsErrors,
+import type {
+	UserCreateTransactionCredentials,
+	UserCreateTransactionCredentialsErrors,
 } from "~/utils/types/Transaction";
+import type { User } from "~/utils/types/User";
 
 definePageMeta({
 	middleware: "user",
@@ -15,7 +15,6 @@ definePageMeta({
 
 // GET CATEGORIES & SUBCATEGORIES
 const formErrors = reactive<UserCreateTransactionCredentialsErrors>({
-	type: [],
 	name: [],
 	description: [],
 	categoryId: [],
@@ -24,7 +23,6 @@ const formErrors = reactive<UserCreateTransactionCredentialsErrors>({
 	createdAt: [],
 });
 const formData = reactive<UserCreateTransactionCredentials>({
-	type: TransactionType.EXPENSE,
 	name: "",
 	description: "",
 	categoryId: 0,
@@ -113,14 +111,6 @@ watch(
 		<Header>Create Transaction</Header>
 		<form v-if="status !== 'error'" class="flex flex-col gap-y-2 *:gap-y-1"
 			@submit.prevent="handleCreateTransaction">
-			<FormField className="*:flex *:items-center *:gap-x-2">
-				<div v-for="transactionType in TransactionType">
-					<input type="radio" name="role" :id="transactionType" :value="transactionType"
-						v-model="formData.type" required>
-					<Label :for="transactionType">{{ capitalizeFirstLetter(transactionType) }}</Label>
-				</div>
-				<FormFieldErrors :list="formErrors.type" />
-			</FormField>
 			<FormField>
 				<Label for="name">Name</Label>
 				<Textarea name="name" id="name" v-model="formData.name" required />

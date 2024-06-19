@@ -3,30 +3,30 @@ import type { Resource } from "~/utils/types";
 import type { User } from "~/utils/types/User";
 
 definePageMeta({
-	middleware: "admin",
-	layout: "admin-aside",
+    middleware: "admin",
+    layout: "admin-aside",
 });
 
 // GET USERS
 const client = useSanctumClient();
 const {
-	status,
-	error,
-	data: response,
+    status,
+    error,
+    data: response,
 } = await useAsyncData<Resource<User[]>>("users", () => client("/api/users"), {
-	lazy: true,
+    lazy: true,
 });
 
 // DELETE USER
 async function handleDeleteUser(userId: User["id"]) {
-	await client(`/api/users/${userId}`, {
-		method: "delete",
-		onResponse(context) {
-			if (!context.response.ok) return;
+    await client(`/api/users/${userId}`, {
+        method: "delete",
+        onResponse(context) {
+            if (!context.response.ok) return;
 
-			refreshNuxtData("users");
-		},
-	});
+            refreshNuxtData("users");
+        },
+    });
 }
 </script>
 
@@ -59,7 +59,7 @@ async function handleDeleteUser(userId: User["id"]) {
                         </tr>
                         <tr v-else v-for="user in response.data">
                             <td>{{ user.id }}</td>
-                            <td>{{ user.role }}</td>
+                            <td>{{ capitalizeFirstLetter(user.role) }}</td>
                             <td>{{ user.name }}</td>
                             <td>{{ user.email }}</td>
                             <td>{{ user.emailVerifiedAt }}</td>

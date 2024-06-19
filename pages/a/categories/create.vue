@@ -1,7 +1,8 @@
 <script setup lang='ts'>
-import type {
-	AdminCreateCategoryCredentials,
-	AdminCreateCategoryCredentialsErrors,
+import {
+	CategoryType,
+	type AdminCreateCategoryCredentials,
+	type AdminCreateCategoryCredentialsErrors,
 } from "~/utils/types/Category";
 
 definePageMeta({
@@ -11,9 +12,11 @@ definePageMeta({
 
 // CREATE CATEGORY
 const formErrors = reactive<AdminCreateCategoryCredentialsErrors>({
+	type: [],
 	name: [],
 });
 const formData = reactive<AdminCreateCategoryCredentials>({
+	type: CategoryType.EXPENSE,
 	name: "",
 });
 async function handleCreateCategory() {
@@ -39,6 +42,14 @@ async function handleCreateCategory() {
 	<Main className="flex flex-col gap-y-4">
 		<Header>Create Category</Header>
 		<form class="flex flex-col gap-y-2 *:gap-y-1" @submit.prevent="handleCreateCategory">
+			<FormField className="*:flex *:items-center *:gap-x-2">
+				<div v-for="categoryType in CategoryType">
+					<input type="radio" name="role" :id="categoryType" :value="categoryType" v-model="formData.type"
+						required>
+					<Label :for="categoryType">{{ capitalizeFirstLetter(categoryType) }}</Label>
+				</div>
+				<FormFieldErrors :list="formErrors.type" />
+			</FormField>
 			<FormField>
 				<Label for="name">Name</Label>
 				<Input type="text" name="name" id="name" v-model="formData.name" />

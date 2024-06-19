@@ -1,9 +1,10 @@
 <script setup lang='ts'>
 import type { Resource } from "~/utils/types";
-import type {
-	AdminEditCategoryCredentials,
-	AdminEditCategoryCredentialsErrors,
-	Category,
+import {
+	CategoryType,
+	type AdminEditCategoryCredentials,
+	type AdminEditCategoryCredentialsErrors,
+	type Category,
 } from "~/utils/types/Category";
 
 definePageMeta({
@@ -16,9 +17,11 @@ const route = useRoute();
 const categoryId = route.params.categoryId;
 
 const formErrors = reactive<AdminEditCategoryCredentialsErrors>({
+	type: [],
 	name: [],
 });
 const formData = reactive<AdminEditCategoryCredentials>({
+	type: CategoryType.EXPENSE,
 	name: "",
 });
 
@@ -30,6 +33,7 @@ const { status, error } = await useAsyncData<Resource<Category>>(
 				if (!response._data) return;
 				const { data } = response._data as Resource<Category>;
 
+				formData.type = data.type;
 				formData.name = data.name;
 			},
 		}),
@@ -62,6 +66,14 @@ async function handleEditCategory() {
 	<Main className="flex flex-col gap-y-4">
 		<Header>Edit Category #{{ categoryId }}</Header>
 		<form v-if="status !== 'error'" class="flex flex-col gap-y-2 *:gap-y-1" @submit.prevent="handleEditCategory">
+			<FormField className="*:flex *:items-center *:gap-x-2">
+				<div v-for="categoryType in CategoryType">
+					<input type="radio" name="role" :id="categoryType" :value="categoryType" v-model="formData.type"
+						required>
+					<Label :for="categoryType">{{ capitalizeFirstLetter(categoryType) }}</Label>
+				</div>
+				<FormFieldErrors :list="formErrors.type" />
+			</FormField>
 			<FormField>
 				<Label for="name">Name</Label>
 				<Input type="text" name="name" id="name" v-model="formData.name" required />
