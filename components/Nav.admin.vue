@@ -7,8 +7,8 @@ const user = useSanctumUser<Resource<User>>();
 
 // LOGOUT USER
 async function handleLogoutUser() {
-    const auth = useSanctumAuth();
-    await auth.logout();
+	const auth = useSanctumAuth();
+	await auth.logout();
 }
 </script>
 

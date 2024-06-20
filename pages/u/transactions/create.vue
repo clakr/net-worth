@@ -47,7 +47,6 @@ const {
 			client("/api/categories", {
 				onResponse({ response }) {
 					if (!response._data) return;
-
 					const { data } = response._data as Resource<Category[]>;
 
 					const firstCategory = data.at(0);
@@ -70,7 +69,7 @@ async function handleCreateTransaction() {
 	if (!user.value) return;
 	const userId = user.value.data.id;
 
-	await client(`/api/users/${userId}/transactions`, {
+	await client("/api/transactions", {
 		method: "post",
 		body: { ...formData },
 		async onResponse(context) {
