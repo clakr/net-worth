@@ -12,6 +12,7 @@
 		"format": "bunx @biomejs/biome format --write ."
 	},
 	"dependencies": {
+		"@nuxt/icon": "^1.0.0-rc.1",
 		"@nuxtjs/tailwindcss": "^6.12.0",
 		"chart.js": "^4.4.3",
 		"nuxt": "^3.12.1",

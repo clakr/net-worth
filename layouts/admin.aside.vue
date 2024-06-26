@@ -1,15 +1,18 @@
 <template>
     <div class="min-h-screen grid grid-cols-[300px_calc(100svw-300px)] grid-rows-[69px_1fr]">
         <Aside className="row-span-2 flex flex-col">
-            <Button to="/a/users" variant="subtle">
+            <AsideLink to="/a/users">
+                <Icon name="ph:users-fill" />
                 Users
-            </Button>
-            <Button to="/a/categories" variant="subtle">
+            </AsideLink>
+            <AsideLink to="/a/categories">
+                <Icon name="bxs:category" />
                 Categories
-            </Button>
-            <Button to="/a/subcategories" variant="subtle">
+            </AsideLink>
+            <AsideLink to="/a/subcategories">
+                <Icon name="bxs:category-alt" />
                 Subcategories
-            </Button>
+            </AsideLink>
         </Aside>
         <NavAdmin />
         <slot />

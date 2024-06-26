@@ -2,7 +2,6 @@
 import type { Resource } from "~/utils/types";
 import type { SubCategory } from "~/utils/types/SubCategory";
 import type { Transaction } from "~/utils/types/Transaction";
-import type { User } from "~/utils/types/User";
 
 definePageMeta({
 	middleware: "user",
@@ -10,19 +9,13 @@ definePageMeta({
 });
 
 // GET USER'S TRANSACTIONS
-const user = useSanctumUser<Resource<User>>();
-const userId = user.value?.data.id;
-
 type Data = Resource<(Transaction & { subCategory: SubCategory })[]>;
-
 const client = useSanctumClient();
 const {
 	status,
 	error,
 	data: response,
-} = useAsyncData<Data>(() => client("/api/transactions"), {
-	lazy: true,
-});
+} = useAsyncData<Data>(() => client("/api/transactions"), { lazy: true });
 </script>
 
 <template>

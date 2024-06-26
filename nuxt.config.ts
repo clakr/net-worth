@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
 	devtools: { enabled: true },
-	modules: ["nuxt-auth-sanctum", "@nuxtjs/tailwindcss"],
+	modules: ["nuxt-auth-sanctum", "@nuxtjs/tailwindcss", "@nuxt/icon"],
 	sanctum: {
 		baseUrl: process.env.BACKEND_URL,
 		redirect: {

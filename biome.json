@@ -10,6 +10,6 @@
 		}
 	},
 	"files": {
-		"ignore": [".nuxt/**"]
+		"ignore": [".nuxt/**", ".output/**"]
 	}
 }
